@@ -4,7 +4,7 @@ class BitmapEditor
   end
 
   def create_table(rows, columns)
-    Array.new(rows) { Array.new(columns, "O") }
+    @current_image = Array.new(rows) { Array.new(columns, "O") }
   end
 
   def show_table
@@ -24,7 +24,7 @@ class BitmapEditor
   def paint(x, y, c)
     y = y - 1
     x = x - 1
-    $table[y][x] = c
+    @current_image[y][x] = c
   end
 
   def paint_vertical_segment(x, y1, y2, c)
