@@ -25,26 +25,41 @@ def help
 end
 
 def create_new_image(args)
-  begin
+  unless ((Integer(args[1]) rescue false) && (Integer(args[2]) rescue false))
+    print_system_message "Incorrect arguments passed for this command. Type 'h' for help."
+  else
     columns = args[1].to_i
     rows = args[2].to_i
-  rescue ArgumentError => e
-    print_system_message "Invalid arguments supplied! Make sure you are providing integers"
-  end
 
-  if(rows > 250)
-    print_system_message "Maximum image height is 250, so the height for your new image has been set to 250"
-    rows = 250
-  end
+    if(rows > 250)
+      print_system_message "Maximum image height is 250, so the height for your new image has been set to 250"
+      rows = 250
+    end
 
-  if(columns > 250)
-    print_system_message "Maximum image width is 250, so the width for your new image has been set to 250"
-    columns = 250
-  end
+    if(columns > 250)
+      print_system_message "Maximum image width is 250, so the width for your new image has been set to 250"
+      columns = 250
+    end
 
-  $editor.create_table(columns, rows)
-  $current_image_height = rows
-  $current_image_width = columns
+    $editor.create_table(columns, rows)
+    $current_image_height = rows
+    $current_image_width = columns
+  end
+end
+
+def paint(args)
+  unless ((Integer(args[1]) rescue false) && (Integer(args[2]) rescue false) && (args[3].length == 1))
+    print_system_message "Incorrect arguments passed for this command. Type 'h' for help."
+  else
+    row = args[1].to_i
+    column = args[2].to_i
+
+    if(row > $current_image_height || column > $current_image_width)
+      print_system_message "You're trying to paint outside the bounds of the image! Double check your arguments."
+    else
+      $editor.paint(args[1].to_i, args[2].to_i, args[3])
+    end
+  end
 end
 
 def main
@@ -68,7 +83,7 @@ def main
       exit = true
       print_system_message "Have a nice day!"
     when "L"
-      $editor.paint(args[1].to_i, args[2].to_i, args[3])
+      paint(args)
     when "H"
       help
     else
