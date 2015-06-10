@@ -18,7 +18,7 @@ class BitmapEditor
   end
 
   def clear_table
-    create_table($table.length, $table[0].length)
+    create_table(@current_image.length, @current_image[0].length)
   end
 
   def paint(x, y, c)
@@ -31,7 +31,7 @@ class BitmapEditor
     x = x - 1
     for i in y1..y2 do
       i = i - 1
-      $table[i][x] = c
+      @current_image[i][x] = c
     end
   end
 
@@ -39,7 +39,7 @@ class BitmapEditor
     y = y - 1
     for i in x1..x2 do
       i = i - 1
-      $table[y][i] = c
+      @current_image[y][i] = c
     end
   end
 
@@ -51,19 +51,19 @@ class BitmapEditor
       x = x - 1
       y = y - 1
 
-      o = $table[y][x]
-      $table[y][x] = c
+      o = @current_image[y][x]
+      @current_image[y][x] = c
     else
       # Subsequent recursive runs
-      if $table[y][x] == o
-        $table[y][x] = c
+      if @current_image[y][x] == o
+        @current_image[y][x] = c
       else
         continue = false
       end
     end
 
     if continue
-      if(y + 1 < $table.length)
+      if(y + 1 < @current_image.length)
         fill_region(x, y + 1, c, o)
       end
 
@@ -72,7 +72,7 @@ class BitmapEditor
       end
 
 
-      if(x + 1 < $table[0].length)
+      if(x + 1 < @current_image.length)
         fill_region(x + 1, y, c, o)
       end
 
