@@ -55,8 +55,7 @@ class BitmapEditor
     endRow = p2[1]
 
     for i in startColumn..endColumn do
-      i = i - 1
-      paint_vertical_segment(i, startRow - 1, endRow - 1, c)
+      paint_vertical_segment(i, startRow, endRow, c)
     end
   end
 
