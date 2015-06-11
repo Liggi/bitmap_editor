@@ -1,5 +1,7 @@
 # Bitmap Editor
 
+To begin, run "ruby program.rb" in your console.
+
 # Commands
 
 There are 9 supported commands:
