@@ -3,9 +3,8 @@ class BitmapEditor
     @current_image = create_table(rows, columns)
   end
 
-  def create_table(rows, columns, fill = nil)
-    c = fill || "O"
-    @current_image = Array.new(rows) { Array.new(columns, c) }
+  def create_table(rows, columns, fill = "O")
+    @current_image = Array.new(rows) { Array.new(columns, fill) }
   end
 
   def show_table
