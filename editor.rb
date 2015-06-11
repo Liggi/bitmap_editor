@@ -3,8 +3,9 @@ class BitmapEditor
     @current_image = create_table(rows, columns)
   end
 
-  def create_table(rows, columns)
-    @current_image = Array.new(rows) { Array.new(columns, "O") }
+  def create_table(rows, columns, fill = nil)
+    c = fill || "O"
+    @current_image = Array.new(rows) { Array.new(columns, c) }
   end
 
   def show_table
@@ -19,6 +20,10 @@ class BitmapEditor
 
   def clear_table
     create_table(@current_image.length, @current_image[0].length)
+  end
+
+  def fill_all(c)
+    create_table(@current_image.length, @current_image[0].length, c)
   end
 
   def paint(x, y, c)
@@ -40,6 +45,18 @@ class BitmapEditor
     for i in x1..x2 do
       i = i - 1
       @current_image[y][i] = c
+    end
+  end
+
+  def paint_square(p1, p2, c)
+    startColumn = p1[0]
+    endColumn = p2[0]
+    startRow = p1[1]
+    endRow = p2[1]
+
+    for i in startColumn..endColumn do
+      i = i - 1
+      paint_vertical_segment(i, startRow - 1, endRow - 1, c)
     end
   end
 
