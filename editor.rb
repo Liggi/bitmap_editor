@@ -11,7 +11,7 @@ class BitmapEditor
     str = ""
 
     @current_image.each do |r|
-      str += r.map { |c| c }.join(" ") + "\n"
+      str += r.join(" ") + "\n"
     end
 
     return str
