@@ -25,7 +25,7 @@ class Canvas
   end
 
   def get_point_colour(point)
-    @matrix[point.x - 1][point.y - 1]
+    @matrix[point.y - 1][point.x - 1]
   end
 
   def get_adjacent_points(point)
@@ -44,7 +44,7 @@ class Canvas
   end
 
   def is_point_within_bounds?(point)
-    point.x.between?(1, @width + 1) && point.y.between?(1, @height + 1)
+    point.x.between?(1, @width) && point.y.between?(1, @height)
   end
 
   def to_s

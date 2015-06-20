@@ -21,24 +21,13 @@ class Editor
 
   def fill(point, colour, previousColour = nil)
     if(previousColour)
-      puts "subsequent"
-      if @canvas.get_point_colour(point) == previousColour
-        puts "updating point " + point.x.to_s + "," + point.y.to_s
-        gets
+      if @canvas.is_point_within_bounds?(point) && (@canvas.get_point_colour(point) == previousColour)
         @canvas.update(point, colour)
-        if @canvas.get_point_colour(point) != colour
-          puts "didn't set properly"
-        end
         fill_adjacent(point, colour, previousColour)
       end
     else
       previousColour = @canvas.get_point_colour(point)
-      puts "updating point " + point.x.to_s + "," + point.y.to_s
-      gets
       @canvas.update(point, colour)
-      if @canvas.get_point_colour(point) != colour
-        puts "didn't set properly"
-      end
       fill_adjacent(point, colour, previousColour)
     end
   end
