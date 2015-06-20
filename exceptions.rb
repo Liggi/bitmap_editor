@@ -4,6 +4,10 @@ class OutOfCanvasBoundsException < StandardError
   def initialize(object)
     @object = object
   end
+
+  def message
+    "Error: attempted to paint outside the bounds of the image"
+  end
 end
 
 class InvalidColourException < StandardError
@@ -11,5 +15,9 @@ class InvalidColourException < StandardError
 
   def initialize(object)
     @object = object
+  end
+
+  def message
+    "Error: invalid colour"
   end
 end

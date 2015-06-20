@@ -4,8 +4,6 @@ require_relative 'point'
 class Canvas
   attr_reader :width, :height
 
-  @@out_of_bounds_message = "Error: attempted to paint outside the bounds of the image"
-
   def initialize(width, height)
     @matrix = create(width, height)
     @width = width
@@ -20,7 +18,7 @@ class Canvas
     if is_point_within_bounds?(point)
       @matrix[point.y - 1][point.x - 1] = colour
     else
-      raise OutOfImageBoundsException.new(point), @@out_of_bounds_message
+      raise OutOfImageBoundsException.new(point)
     end
   end
 
@@ -29,18 +27,12 @@ class Canvas
   end
 
   def get_adjacent_points(point)
-    points = Array.new
     [
       Point.new(point.x - 1, point.y),
       Point.new(point.x + 1, point.y),
       Point.new(point.x, point.y - 1),
       Point.new(point.x, point.y + 1)
-    ].each do |p|
-      if is_point_within_bounds?(p)
-        points.push(p)
-      end
-    end
-    points
+    ].select { |p| is_point_within_bounds?(p) }
   end
 
   def is_point_within_bounds?(point)
