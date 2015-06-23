@@ -1,0 +1,47 @@
+require_relative 'exceptions'
+require_relative 'editor'
+require_relative 'canvas'
+
+class UI
+  @@valid_commands = ["a", "v"]
+
+  def initalize
+    @canvas = Canvas.new(6, 6)
+    @editor = Editor.new(canvas)
+    @exit = false
+  end
+
+  def start
+    while !@exit do
+      get_user_command
+    end
+  end
+
+  def get_user_command
+    process_user_command(gets.chomp)
+  end
+
+  def process_user_command(input)
+    if(input.empty?)
+      system_message(:empty_command)
+    else
+      if(@@valid_commands.include?(input[0]))
+        system_message(nil, "You wrote a proper command!")
+      else
+        system_message(nil, "You wrote a proper command!")
+      end
+    end
+  end
+
+  def system_message(type, custom = nil)
+    message = custom || ""
+    if(type == :empty_command)
+      message = "Please enter a command."
+    else if (type == :unknown_command)
+      message = "Unknown command."
+    end
+
+    puts message
+  end
+
+end
